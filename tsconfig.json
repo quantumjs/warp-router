@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "declaration": true,
+    "lib": [
+      "DOM",
+      "es2015"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "demo"
+  ]
+}
+
+

@@ -1,0 +1,37 @@
+{
+  "name": "warp-router",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/warp-router.js",
+  "types": "build/src/WarpRouter.d.ts",
+  "files": [
+    "demo/browserImport/index.html",
+    "build/warp-router.js",
+    "build/src/"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "build-prod": "webpack -p",
+    "deploy": "npm run build && sh deploy.sh ",
+    "watch": "webpack --watch --watch-poll ",
+    "prepublish": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quantumjs/warp-router.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quantumjs/warp-router/issues"
+  },
+  "homepage": "https://github.com/quantumjs/warp-router#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^2.24.1",
+    "ts-loader": "^1.0.0",
+    "typescript": "^2.1.5",
+    "webpack": "2.2.0-rc.7",
+    "webpack-build-notifier": "^0.1.13"
+  }
+}
