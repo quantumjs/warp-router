@@ -9,7 +9,7 @@ export default class WarpRouter {
    * @param routes
    */
   constructor(public selector: string,
-              public routes: Map<string,() => void>,
+              public routes: Map<string,() => string>,
               public configuration: Configuration = new Configuration()) {
 
     this.hostElement = <HTMLElement> document.querySelector(selector)
@@ -20,13 +20,11 @@ export default class WarpRouter {
     this.addListeners()
   }
 
-  urlHashChange(event: HashChangeEvent) {
-    this.applyRouteContentFunction(window.location.hash)
-  }
 
   applyRouteContentFunction(route: string) {
     try {
       const contentFunction = this.routes.get(route)
+      this.hostElement.innerHTML = contentFunction()
     }
     catch (e) {
       throw new Error("Unrecognised route")
@@ -34,7 +32,9 @@ export default class WarpRouter {
   }
 
   addListeners() {
-    window.addEventListener('hashchange', this.urlHashChange);
+    window.addEventListener('hashchange', (event: HashChangeEvent) => {
+      this.applyRouteContentFunction(window.location.hash)
+    });
   }
 }
 
