@@ -13,10 +13,10 @@ export default class WarpRouter {
               public configuration: Configuration = new Configuration()) {
 
     this.hostElement = <HTMLElement> document.querySelector(selector)
-    if (configuration.defaultRoute !== null) {
+    if (!window.location.hash && configuration.defaultRoute !== null) {
       window.location.hash = configuration.defaultRoute
-      this.applyRouteContentFunction(configuration.defaultRoute)
     }
+    this.applyRouteContentFunction(window.location.hash)
     this.addListeners()
   }
 

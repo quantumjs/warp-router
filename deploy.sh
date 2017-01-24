@@ -10,6 +10,7 @@ git branch -D gh-pages
 
 git checkout --orphan gh-pages
 git add build/* -f
+git add demo/typescriptImport/build/* -f
 git commit -m "build files"
 git push -f origin gh-pages
 git checkout master
