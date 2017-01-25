@@ -10,5 +10,8 @@
     "typescript": "^2.1.4",
     "webpack": "^2.2.0",
     "webpack-build-notifier": "^0.1.13"
+  },
+  "dependencies": {
+    "money-input": "0.0.1"
   }
 }

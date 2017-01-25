@@ -1,4 +1,5 @@
 import {Configuration} from "./Configuration";
+import {Route} from "./Route";
 export default class WarpRouter {
 
   private hostElement: HTMLElement
@@ -6,10 +7,10 @@ export default class WarpRouter {
   /**
    *
    * @param selector where the router will be embedded
-   * @param routes
+   * @param routes can take a function that will generate a string
    */
   constructor(public selector: string,
-              public routes: Map<string,() => string>,
+              public routes: Map<string, Route>,
               public configuration: Configuration = new Configuration()) {
 
     this.hostElement = <HTMLElement> document.querySelector(selector)
@@ -21,10 +22,13 @@ export default class WarpRouter {
   }
 
 
-  applyRouteContentFunction(route: string) {
+  applyRouteContentFunction(routeString: string) {
     try {
-      const contentFunction = this.routes.get(route)
-      this.hostElement.innerHTML = contentFunction()
+      const route: Route = this.routes.get(routeString)
+      const result = route.routingFunction()
+      if (typeof result === "string") {
+        this.hostElement.innerHTML = result
+      }
     }
     catch (e) {
       throw new Error("Unrecognised route")
