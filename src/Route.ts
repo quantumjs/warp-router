@@ -6,4 +6,8 @@ export class Route {
   constructor(public routingFunction: RoutingFunction, public context= null) {
 
   }
+
+  run(){
+    return this.routingFunction()
+  }
 }
