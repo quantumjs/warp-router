@@ -2,7 +2,9 @@ import {Configuration} from "./Configuration";
 import {Route} from "./Route";
 export default class WarpRouter {
 
-  private hostElement: HTMLElement
+  public hostElement: HTMLElement
+  public routes: Map<string, Route>
+
 
   /**
    *
@@ -10,17 +12,17 @@ export default class WarpRouter {
    * @param routes can take a function that will generate a string
    */
   constructor(public selector: string,
-              public routes: Map<string, Route>,
               public configuration: Configuration = new Configuration()) {
-
     this.hostElement = <HTMLElement> document.querySelector(selector)
+
     if (!window.location.hash && configuration.defaultRoute !== null) {
       window.location.hash = configuration.defaultRoute
     }
-    this.applyRouteContentFunction(window.location.hash)
-    this.addListeners()
   }
 
+  setRoutes(routes: Map<string, Route>) {
+    this.routes = routes
+  }
 
   applyRouteContentFunction(routeString: string) {
     try {
@@ -39,6 +41,10 @@ export default class WarpRouter {
     window.addEventListener('hashchange', (event: HashChangeEvent) => {
       this.applyRouteContentFunction(window.location.hash)
     });
+  }
+
+  attach() {
+    this.addListeners()
   }
 }
 
