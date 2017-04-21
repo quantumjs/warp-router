@@ -4,9 +4,8 @@ export class Configuration {
    * will navigate to this if there is no hash (ie http://yoursite.com)
    * If http://yoursite.com#something then the #something route will be rendered (if available)
    */
-  public defaultRoute: string = null
 
-  constructor() {
+  constructor (public  defaultRoute = null) {
 
   }
 }

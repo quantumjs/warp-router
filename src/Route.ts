@@ -1,13 +1,11 @@
 export type RoutingFunction = ((context?: any) => (void | string))
+import {IAttachableComponent} from 'vanilla-typescript'
 
 export class Route {
   cacheResult: false
 
-  constructor(public routingFunction: RoutingFunction, public context= null) {
+  constructor (public onFirstVisit: ()=>void,public onVisit: ()=>void, public onLeave: ()=>void) {
 
   }
 
-  run(){
-    return this.routingFunction()
-  }
 }

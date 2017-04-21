@@ -1,6 +1,6 @@
-import WarpRouter from 'warp-router'
-import {Configuration} from "../../src/Configuration";
-import {Route} from "../../src/Route";
+  import {WarpRouter} from 'warp-router'
+import {Configuration} from "../src/Configuration";
+import {Route} from "../src/Route";
 import {myFunction} from "./page2";
 
 function createDemo() {

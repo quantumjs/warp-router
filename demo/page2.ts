@@ -6,7 +6,7 @@ export const myFunction = (hostElement) => {
 
   function addListeners() {
     document.querySelector('#page2btn').addEventListener('click', function () {
-      alert("It workew")
+      alert("It worked")
     })
   }
 

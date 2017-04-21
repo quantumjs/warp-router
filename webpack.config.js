@@ -11,7 +11,7 @@ const PATHS = {
 module.exports = {
 
   entry: {
-    "warp-router": PATHS.src + '/WarpRouter.ts'
+    "warp-router": PATHS.src + '/index.ts'
   },
   output: {
     path: PATHS.build,
