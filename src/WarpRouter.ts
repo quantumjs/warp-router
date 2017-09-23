@@ -5,17 +5,13 @@ import { IComponent, getFormValues } from 'vanilla-typescript'
 export class WarpRouter implements IComponent {
 
   public hostElement: HTMLElement
-  public routes: Map<string, Route>
 
   /**
    *
    * @param selector where the router will be embedded
    * @param routes can take a function that will generate a string
    */
-  constructor (public configuration: Configuration) {
-    if (!window.location.hash) {
-      window.location.hash = configuration.defaultRoute
-    }
+  constructor (public routes: Map<string, Route>, public configuration: Configuration) {
   }
 
   setRoutes (routes: Map<string, Route>) {
@@ -23,12 +19,12 @@ export class WarpRouter implements IComponent {
   }
 
   onHashChange (routeString: string) {
-    try {
-      const route: Route = this.routes.get(routeString)
-      route.onVisit(this.hostElement).then((result: any) => console.log(result))
-    } catch (e) {
-      throw new Error('Unrecognised route')
+    let route: Route = this.routes.get(routeString)
+    // get the home route if no hash
+    if (!route) {
+      route = this.routes.get("")
     }
+    route.onVisit(this.hostElement).then((result: any) => console.log(result))
   }
 
   addListeners (): void {
@@ -46,7 +42,7 @@ export class WarpRouter implements IComponent {
     return new Promise((resolve, reject) => {
       this.hostElement = parentElement
       this.addListeners()
-      this.onHashChange(this.configuration.defaultRoute)
+      this.onHashChange(window.location.hash ? window.location.hash : this.configuration.routeIfNoHash)
       resolve()
     })
   }

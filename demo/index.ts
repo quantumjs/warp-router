@@ -6,9 +6,7 @@ import demoRoute2 from "./routes/DemoRoute2";
 import { CreateComponent } from "./SimpleComponent";
 
 function createDemo () {
-  const configuration = new Configuration('')
-  configuration.defaultRoute = ""
-  const router = new WarpRouter(configuration)
+
   let routes: Map<string, Route> = new Map()
 
   // 2 inline routes and one from a module
@@ -33,7 +31,9 @@ function createDemo () {
 
   routes.set("#page2", demoRoute2)
 
-  router.setRoutes(routes)
+  const configuration = new Configuration('')
+  configuration.routeIfNoHash = ""
+  const router = new WarpRouter(routes, configuration)
 
   router.show(document.querySelector('.container') as HTMLElement)
 }
