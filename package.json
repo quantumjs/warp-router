@@ -1,9 +1,9 @@
 {
   "name": "warp-router",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "build/warp-router.js",
-  "types": "build/src/WarpRouter.d.ts",
+  "types": "build",
   "files": [
     "build"
   ],
@@ -28,7 +28,7 @@
     "tslint": "^5.7.0",
     "tslint-config-standard": "^6.0.1",
     "typescript": "^2.5.2",
-    "vanilla-typescript": "^0.4.7",
+    "vanilla-typescript": "^0.4.8",
     "webpack": "^3.5.6",
     "webpack-build-notifier": "^0.1.16"
   },

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "declaration": true,
+    "declarationDir": "./build"
     "lib": [
       "DOM",
       "es2015"
@@ -12,5 +13,3 @@
     "demo"
   ]
 }
-
-
