@@ -1,3 +1,0 @@
-namespace blockContent{
-  blockContent1= ``
-}

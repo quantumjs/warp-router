@@ -41,7 +41,7 @@ import {Configuration} from "../../src/Configuration";
   configuration.defaultRoute = ""
   const component = new WarpRouter('.container', routes, configuration)
 ```
-The configuration is stongly typed and all the settings are set to null. Defaults are used when null. The warp router is bound to a 
+The configuration is strongly typed and all the settings are set to null. Defaults are used when null. The warp router is bound to a 
 host element. It finds this via the selector parameter. It will only modify content inside this host element. Its possible to have multiple 
  routers running on the same page, bound to different host elements
 

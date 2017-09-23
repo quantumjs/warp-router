@@ -21,17 +21,26 @@ module.exports = {
   },
   devtool: "source-map",
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
+        loader: 'awesome-typescript-loader',
       },
       {
         test: /\.p?css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?importLoaders=1,url=false',
-          'postcss-loader'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1, url: false
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          }
         ]
       }
     ]

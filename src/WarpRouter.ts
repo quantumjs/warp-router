@@ -1,6 +1,8 @@
-import {Configuration} from './Configuration'
-import {Route} from './Route'
-export class WarpRouter {
+import { Configuration } from './Configuration'
+import { Route } from './Route'
+import { IComponent, getFormValues } from 'vanilla-typescript'
+
+export class WarpRouter implements IComponent {
 
   public hostElement: HTMLElement
   public routes: Map<string, Route>
@@ -10,11 +12,8 @@ export class WarpRouter {
    * @param selector where the router will be embedded
    * @param routes can take a function that will generate a string
    */
-  constructor (public selector: string,
-              public configuration: Configuration = new Configuration()) {
-    this.hostElement = document.querySelector(selector) as HTMLElement
-
-    if (!window.location.hash && configuration.defaultRoute !== null) {
+  constructor (public configuration: Configuration) {
+    if (!window.location.hash) {
       window.location.hash = configuration.defaultRoute
     }
   }
@@ -23,26 +22,48 @@ export class WarpRouter {
     this.routes = routes
   }
 
-  applyRouteContentFunction (routeString: string) {
+  onHashChange (routeString: string) {
     try {
       const route: Route = this.routes.get(routeString)
-      const result = route.routingFunction()
-      if (typeof result === 'string') {
-        this.hostElement.innerHTML = result
-      }
-    }
-    catch (e) {
+      route.onVisit(this.hostElement).then((result: any) => console.log(result))
+    } catch (e) {
       throw new Error('Unrecognised route')
     }
   }
 
-  addListeners () {
-    window.addEventListener('hashchange', (event: HashChangeEvent) => {
-      this.applyRouteContentFunction(window.location.hash)
+  addListeners (): void {
+    window.addEventListener('hashchange', this.onHashChangeBoundWithThis)
+  }
+
+  removeListeners (): void {
+    window.removeEventListener('hashchange', this.onHashChangeBoundWithThis)
+  }
+
+  /**
+   * Add listeners
+   */
+  show (parentElement: HTMLElement): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.hostElement = parentElement
+      this.addListeners()
+      this.onHashChange(this.configuration.defaultRoute)
+      resolve()
     })
   }
 
-  attach () {
-    this.addListeners()
+  /**
+   * Add listeners
+   */
+  destroy (): Promise<void> {
+    return new Promise(
+      (resolve) => {
+        this.removeListeners()
+        this.hostElement.parentElement.removeChild(this.hostElement)
+        resolve()
+      })
+  }
+
+  private onHashChangeBoundWithThis = (event: HashChangeEvent) => {
+    this.onHashChange(window.location.hash)
   }
 }

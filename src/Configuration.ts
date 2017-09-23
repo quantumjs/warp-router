@@ -5,7 +5,7 @@ export class Configuration {
    * If http://yoursite.com#something then the #something route will be rendered (if available)
    */
 
-  constructor (public  defaultRoute = null) {
+  constructor (public defaultRoute: string) {
 
   }
 }
