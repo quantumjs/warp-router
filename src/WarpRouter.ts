@@ -5,6 +5,7 @@ import { IComponent, getFormValues } from 'vanilla-typescript'
 export class WarpRouter implements IComponent {
 
   public hostElement: HTMLElement
+  private currentRoute: Route
 
   /**
    *
@@ -19,10 +20,16 @@ export class WarpRouter implements IComponent {
   }
 
   onHashChange (routeString: string) {
+    if (this.currentRoute) {
+      this.currentRoute.onLeave(this.hostElement)
+    }
     let route: Route = this.routes.get(routeString)
     // get the home route if no hash
     if (!route) {
       route = this.routes.get("")
+    }
+    if (!route) {
+      console.error(`You have not route specified for the url ${routeString}`)
     }
     route.onVisit(this.hostElement).then((result: any) => console.log(result))
   }
